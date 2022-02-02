@@ -3,13 +3,13 @@ can be a little difficult to keep track of. The local tennis club
 has some code that is currently being used to update the scoreboard
 when a player scores a point. They has recently acquired two smaller
 tennis clubs, and they two each have a similar piece of code.
- 
+
 You have just been employed by the tennis club, and your job 
 is to refactor all three codebases until you are happy to
 work with any of them. The future is uncertain, new features may
 be needed, and you want to be thoroughly on top of your game when
 that happens.
- 
+
 Summary of Tennis scoring:
 1. A game is won by the first player to have won at least four points 
    in total and at least two points more than the opponent.
