@@ -64,3 +64,10 @@ class TestArabicNumerals(unittest.TestCase):
             ArabicNumeral({})
         with self.assertRaises(TypeError):
             ArabicNumeral(())
+
+    def test_only_roman_numeral_symbols_allowed(self):
+        """Verify that ArabicNumeral() throws an exception for non-Roman numerals"""
+        with self.assertRaises(ValueError):
+            ArabicNumeral("KRM")
+        with self.assertRaises(ValueError):
+            ArabicNumeral("QWERTY")

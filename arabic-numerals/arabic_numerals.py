@@ -29,12 +29,10 @@ def ArabicNumeral(roman: str) -> int:
             return 500
         return 0
 
-    if roman[0] == "V":
-        if roman[1] != "I":
-            raise ValueError("Invalid numeral: can't subtract auxiliary symbol.")
-    if roman[0] == "L":
-        if roman[1] == "C" or roman[1] == "M":
-            raise ValueError("Invalid numeral: can't subtract auxiliary symbol.")
+    if roman[0] == "V" and roman[1] != "I":
+        raise ValueError("Invalid numeral: can't subtract auxiliary symbol.")
+    if roman[0] == "L" and (roman[1] == "C" or roman[1] == "M"):
+        raise ValueError("Invalid numeral: can't subtract auxiliary symbol.")
 
     # Only works for post-fixed smaller values
     if roman[0] == "I":
