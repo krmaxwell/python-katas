@@ -40,6 +40,7 @@ class TestArabicNumerals(unittest.TestCase):
         self.assertEqual(14, ArabicNumeral("XIV"))
         self.assertEqual(40, ArabicNumeral("XL"))
         self.assertEqual(90, ArabicNumeral("XC"))
+        self.assertEqual(54, ArabicNumeral("LIV"))
 
     def test_cant_subtract_auxiliary_symbols(self):
         """Verify that ArabicNumeral() throws an exception for auxiliary symbols"""
@@ -71,3 +72,10 @@ class TestArabicNumerals(unittest.TestCase):
             ArabicNumeral("KRM")
         with self.assertRaises(ValueError):
             ArabicNumeral("QWERTY")
+
+    def test_cant_subtract_twice_consecutively(self):
+        """Verify that ArabicNumeral() throws an exception for consecutive subtractions"""
+        with self.assertRaisesRegex(ValueError, "consecutive subtractions"):
+            ArabicNumeral("LIVX")
+        with self.assertRaisesRegex(ValueError, "consecutive subtractions"):
+            ArabicNumeral("ILM")

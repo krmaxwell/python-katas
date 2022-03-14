@@ -1,6 +1,16 @@
 def ArabicNumeral(roman: str) -> int:
     """Convert a Roman numeral to an Arabic number"""
 
+    conversion_values = {
+        "I": 1,
+        "X": 10,
+        "C": 100,
+        "M": 1000,
+        "V": 5,
+        "L": 50,
+        "D": 500,
+    }
+
     if type(roman) != str:
         raise TypeError("Roman numeral must be a string")
 
@@ -13,21 +23,13 @@ def ArabicNumeral(roman: str) -> int:
         return 0
 
     if len(roman) == 1:
-        if roman == "I":
-            return 1
-        elif roman == "X":
-            return 10
-        elif roman == "C":
-            return 100
-        elif roman == "M":
-            return 1000
-        elif roman == "V":
-            return 5
-        elif roman == "L":
-            return 50
-        elif roman == "D":
-            return 500
-        return 0
+        return conversion_values[roman]
+
+    # check for consecutive subtraction
+    if (conversion_values[roman[0]] < conversion_values[roman[1]]) and (
+        conversion_values[roman[1]] < conversion_values[roman[2]]
+    ):
+        raise ValueError("Invalid numeral: two consecutive subtractions.")
 
     if roman[0] == "V" and roman[1] != "I":
         raise ValueError("Invalid numeral: can't subtract auxiliary symbol.")
@@ -47,3 +49,5 @@ def ArabicNumeral(roman: str) -> int:
         if roman[1] == "D" or roman[1] == "M":
             return ArabicNumeral(roman[1:]) - 100
         return 100 + ArabicNumeral(roman[1:])
+    elif roman[0] == "L":
+        return 50 + ArabicNumeral(roman[1:])
