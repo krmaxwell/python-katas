@@ -49,7 +49,7 @@ Mr.Bean.Counter approaches you
 
 ---
 bread, wheat and pasta
-eggs, animalic
+eggs, animal
 milk, dairy
 coca cola, sodas
 chicken, meat
