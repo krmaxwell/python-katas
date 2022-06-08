@@ -42,3 +42,13 @@ class TestROS(unittest.TestCase):
         ros.add_item("12-pack of eggs", 1, 2)
         ros.add_item("milk (1L)", 4, 8)
         self.assertEqual(ros.total_income, 12)
+
+    def test_create_categories(self):
+        ros = ROS()
+        self.assertEqual(len(ros.categories), 0)
+        ros.add_category("bread", "wheat and pasta")
+        self.assertEqual(len(ros.categories), 1)
+
+        ros.add_category("eggs", "animal")
+        ros.add_category("milk", "dairy")
+        self.assertEqual(len(ros.categories), 3)
