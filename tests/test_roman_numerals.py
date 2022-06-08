@@ -1,4 +1,4 @@
-from roman_numerals import RomanNumeral
+from roman_numerals.roman_numerals import RomanNumeral
 
 
 def test_single_digit():

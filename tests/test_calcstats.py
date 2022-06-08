@@ -1,4 +1,4 @@
-from calcstats import Stats
+from calcstats.calcstats import Stats
 
 
 def test_stats_min():

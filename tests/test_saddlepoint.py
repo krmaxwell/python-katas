@@ -1,4 +1,4 @@
-import saddlepoint as sp
+from saddlepoint import saddlepoint as sp
 
 array_without_sp = [
     [1, 2, 3, 4, 5],

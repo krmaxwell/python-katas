@@ -1,4 +1,4 @@
-from parens import balance_check
+from parens.parens import balance_check
 
 
 def test_simple_pairs():

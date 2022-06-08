@@ -1,5 +1,6 @@
-from yahtzee import Yahtzee
 import unittest
+
+from yahtzee.yahtzee import Yahtzee
 
 
 class TestYahtzee(unittest.TestCase):

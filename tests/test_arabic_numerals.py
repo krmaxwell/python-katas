@@ -1,5 +1,6 @@
-from arabic_numerals import ArabicNumeral
 import unittest
+
+from arabic_numerals.arabic_numerals import ArabicNumeral
 
 
 class TestArabicNumerals(unittest.TestCase):

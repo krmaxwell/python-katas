@@ -1,5 +1,4 @@
-from wordwrap import wrap
-import pytest
+from word_wrap.wordwrap import wrap
 
 
 def test_wrap_empty_line():
