@@ -33,14 +33,19 @@ class TestSaddlepoint(unittest.TestCase):
         self.array_small = [[1, 3, 1], [1, 2, 1], [1, 3, 1]]
 
     def test_get_column(self):
-        assert sp.get_column(self.array_small, 0) == [1, 1, 1]
-        assert sp.get_column(self.array_without_sp, 2) == [3, 4, 5, 1, 2]
+        self.assertListEqual([1, 1, 1], sp.get_column(self.array_small, 0))
+        self.assertListEqual([3, 4, 5, 1, 2], sp.get_column(self.array_without_sp, 2))
 
     def test_saddlepoint(self):
-        assert sp.find_saddlepoints(self.array_small) == [(1, 1)]
-        assert sp.find_saddlepoints(self.array_with_single_saddlepoint) == [(1, 1)]
-        assert sp.find_saddlepoints(self.array_with_two_saddlepoints) == [
-            (1, 0),
-            (3, 0),
-        ]
-        assert sp.find_saddlepoints(self.array_without_sp) == []
+        self.assertListEqual([(1, 1)], sp.find_saddlepoints(self.array_small))
+        self.assertListEqual(
+            [(1, 1)], sp.find_saddlepoints(self.array_with_single_saddlepoint)
+        )
+        self.assertListEqual(
+            [
+                (1, 0),
+                (3, 0),
+            ],
+            sp.find_saddlepoints(self.array_with_two_saddlepoints),
+        )
+        self.assertListEqual([], sp.find_saddlepoints(self.array_without_sp))
