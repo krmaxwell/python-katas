@@ -24,7 +24,7 @@ class TestROS(unittest.TestCase):
         tomatoes, 12, 3
         bananas, 3, 1
         """
-    
+
     def test_items_are_added(self):
         ros = ROS()
         self.assertEqual(len(ros.items), 0)
