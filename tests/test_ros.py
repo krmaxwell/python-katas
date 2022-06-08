@@ -1,6 +1,6 @@
 import unittest
 
-from grocery import ROS
+from grocery_store.grocery import ROS
 
 
 class TestROS(unittest.TestCase):
@@ -42,6 +42,9 @@ class TestROS(unittest.TestCase):
         ros.add_item("12-pack of eggs", 1, 2)
         ros.add_item("milk (1L)", 4, 8)
         self.assertEqual(ros.total_income, 12)
+
+        # full_ros = ROS()
+        # full_ros.process_ros_file(self.ros_data)
 
     def test_create_categories(self):
         ros = ROS()
