@@ -26,8 +26,11 @@ def ArabicNumeral(roman: str) -> int:
         return conversion_values[roman]
 
     # check for consecutive subtraction
-    if (conversion_values[roman[0]] < conversion_values[roman[1]]) and (
-        conversion_values[roman[1]] < conversion_values[roman[2]]
+
+    if (
+        len(roman) >= 3
+        and conversion_values[roman[0]] < conversion_values[roman[1]]
+        and conversion_values[roman[1]] < conversion_values[roman[2]]
     ):
         raise ValueError("Invalid numeral: two consecutive subtractions.")
 
