@@ -24,37 +24,69 @@ class TestROS(unittest.TestCase):
         tomatoes, 12, 3
         bananas, 3, 1
         """
+        self.category_data = """
+        bread, wheat and pasta
+        eggs, animal
+        milk, dairy
+        coca cola, sodas
+        chicken, meat
+        beef, meat
+        carrots, greens
+        apples, fruit
+        butter, dairy
+        cheese, dairy
+        bacon, meat
+        juice, drinks
+        water, drinks
+        twixies, candy
+        tomatoes, greens
+        bananas, fruit
+        """
 
     def test_items_are_added(self):
         ros = ROS()
         self.assertEqual(len(ros.items), 0)
         ros.add_item("bread", 1, 2)
-        self.assertEqual(len(ros.items), 1)
+        self.assertEqual(1, len(ros.items))
         ros.add_item("12-pack of eggs", 1, 2)
         ros.add_item("milk (1L)", 4, 8)
-        self.assertEqual(len(ros.items), 3)
+        self.assertEqual(3, len(ros.items))
 
     def test_grand_total_income(self):
         ros = ROS()
         self.assertEqual(ros.total_income, 0)
         ros.add_item("bread", 1, 2)
-        self.assertEqual(ros.total_income, 2)
+        self.assertEqual(2, ros.total_income)
         ros.add_item("12-pack of eggs", 1, 2)
         ros.add_item("milk (1L)", 4, 8)
-        self.assertEqual(ros.total_income, 12)
+        self.assertEqual(12, ros.total_income)
 
     def test_process_file_data(self):
         ros = ROS()
         ros.process_ros_file(self.ros_data)
-        self.assertEqual(len(ros.items), 17)
-        self.assertEqual(ros.total_income, 116)
+        self.assertEqual(17, len(ros.items))
+        self.assertEqual(116, ros.total_income)
 
     def test_create_categories(self):
         ros = ROS()
-        self.assertEqual(len(ros.categories), 0)
+        self.assertEqual(0, len(ros.categories))
         ros.add_category("bread", "wheat and pasta")
-        self.assertEqual(len(ros.categories), 1)
+        self.assertEqual(1, len(ros.categories))
 
         ros.add_category("eggs", "animal")
         ros.add_category("milk", "dairy")
-        self.assertEqual(len(ros.categories), 3)
+        self.assertEqual(3, len(ros.categories))
+
+        self.assertIn("eggs", ros.categories)
+
+    def test_create_full_categories(self):
+        ros = ROS()
+        ros.create_categories(self.category_data)
+        self.assertEqual(16, len(ros.categories))
+        self.assertIn("bread", ros.categories)
+
+    def test_category_sales(self):
+        ros = ROS()
+        ros.create_categories(self.category_data)
+        ros.process_ros_file(self.ros_data)
+        self.assertEqual(2, ros.category_sales("wheat and pasta"))
