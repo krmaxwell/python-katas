@@ -4,13 +4,13 @@ From <https://github.com/Gianfrancoalongi/incremental_katas/tree/master/Grocery_
 
 ## Step 1
 
-Welcome to the Grocery store, we have some pretty nice cash registers which have an interface to a ROM containing daily sale info, through which we can collect the sales reports from all the tills at the end of the day. You see, there is this script which connects to the registers and reads the daily transactions, generating a Record Of Sales (ROS) which is a file containing an item name, quantity sold of this item, and the total price paid for quantity amount of item name.
+Welcome to the grocery store! We have some pretty nice cash registers which have an interface to a ROM containing daily sale info. At the of the day, a script connects to the registers and reads the daily transactions. It then generates a Record Of Sales (ROS) which is a file containing an item name, quantity sold, and the total price paid for that quantity of the item.
 
-We collect all of these ROS's and email them for manuall processing by the accountant, Mr Bean.C.Ounter. However, we will team you up with Mr Bean, so you can facilitate his job a bit, as we plan to open 30 new Grocery stores.
+We collect all of these records (ROS) and email them for manual processing by the accountant, Mr Bean C. Ounter. However, we will team you up with Mr Bean to facilitate his job a bit as we plan to open 30 new stores.
 
 Your first task is to write a program that reads ROS files and generates the grand total income for each ROS file.
 
-Thus, the contents of one example ROS file can be found below:
+The contents of one example ROS file can be found below:
 
 ```csv
 bread, 1, 2
@@ -34,12 +34,12 @@ bananas, 3, 1
 
 ## Step 2
 
-Mr.Bean.Counter approaches you
+Mr. Bean C. Ounter approaches you:
 
 > Great job with the ROS files! You know what, I think we can start collecting more interesting information of these sales if we do some post processing on the ROS files.
 > It would be nice if we could categorize the items to be able to spot trends in which type of categories our customers are most interested in.
 > I would like you to enrich the ROS files with a new field, containing the category, in order to categorize the items, I have supplied you with a list here containing the items and their categories.
-> After that you program has categorized the ROS, I would like it to output the total amount of money for each category, together with the grand total kind of like this:
+> After that you program has categorized the ROS, I would like it to output the total amount of money for each category, together with the grand total, kind of like this:
 
    wheat and pasta: 10
    fruit: 20
