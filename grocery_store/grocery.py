@@ -1,3 +1,6 @@
+import re
+
+
 class ROS:
     def __init__(self):
         self.items = []
@@ -10,3 +13,8 @@ class ROS:
 
     def add_category(self, item, category):
         self.categories[item] = category
+
+    def process_ros_file(self, data):
+        for item in data.split("\n"):
+            if item.strip():
+                self.add_item(item, 0, int(item.split(",")[-1]))
