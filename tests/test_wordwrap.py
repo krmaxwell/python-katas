@@ -18,3 +18,6 @@ class TestWordWrap(unittest.TestCase):
 
     def test_wrap_longer_line(self):
         self.assertEqual("Still two\nlines", wrap("Still two lines", 12))
+
+    def test_long_word(self):
+        self.assertEqual("Pyth\non", wrap("Python", 4))
