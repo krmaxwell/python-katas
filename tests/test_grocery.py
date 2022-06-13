@@ -77,7 +77,7 @@ class TestROS(unittest.TestCase):
         ros.add_category("milk", "dairy")
         self.assertEqual(3, len(ros.categories))
 
-        self.assertIn("eggs", ros.categories)
+        self.assertIn("dairy", ros.categories)
 
     def test_create_full_categories(self):
         ros = ROS()
@@ -89,4 +89,5 @@ class TestROS(unittest.TestCase):
         ros = ROS()
         ros.create_categories(self.category_data)
         ros.process_ros_file(self.ros_data)
-        self.assertEqual(2, ros.category_sales("wheat and pasta"))
+        self.assertEqual(2, ros.get_category_sales("wheat and pasta"))
+        self.assertEqual(4, ros.get_category_sales("greens"))
