@@ -91,3 +91,4 @@ class TestROS(unittest.TestCase):
         ros.process_ros_file(self.ros_data)
         self.assertEqual(2, ros.get_category_sales("wheat and pasta"))
         self.assertEqual(4, ros.get_category_sales("greens"))
+        self.assertEqual(10, ros.get_category_sales("sodas"))

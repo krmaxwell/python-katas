@@ -6,15 +6,15 @@ class ROS:
         self._category_sales = {}
 
     def add_item(self, name, _, price):
+        name = name.strip()
         # quantity is unused for now
+        print("Adding item: {} at price: {}".format(name, price))
         self.items.append((name, _, price))
         self.total_income += price
         for category in self.categories:
-            if name in self.categories[category]:
-                print("Found {} in {}".format(name, category))
-                if category not in self._category_sales:
-                    self._category_sales[category] = 0
-                self._category_sales[category] += price
+            for item in self.categories[category]:
+                if item in name:
+                    self._category_sales[category] = self._category_sales.get(category, 0) + price
 
     def add_category(self, item, category):
         if category not in self.categories:
@@ -24,8 +24,11 @@ class ROS:
     def process_ros_file(self, data):
         for item in data.split("\n"):
             if item.strip():  # if item is not empty
+                name = item.split(",")[-3].strip()
                 # items can have multiple commas so we just look for the last item in the list
-                self.add_item(item, 0, int(item.split(",")[-1]))
+                price = int(item.split(",")[-1].strip())
+                name = item.strip().split(",")[0]
+                self.add_item(name, 0, price)
 
     def create_categories(self, data):
         for line in data.split("\n"):
@@ -33,7 +36,6 @@ class ROS:
                 item = line.split(",")[0].strip()
                 category = line.split(",")[1].strip()
                 self.add_category(item, category)
-                print("Added {} to {}".format(item, category))
 
     def get_category_sales(self, category):
         return self._category_sales.get(category, 0)
