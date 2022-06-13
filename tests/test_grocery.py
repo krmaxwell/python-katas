@@ -82,8 +82,8 @@ class TestROS(unittest.TestCase):
     def test_create_full_categories(self):
         ros = ROS()
         ros.create_categories(self.category_data)
-        self.assertEqual(16, len(ros.categories))
-        self.assertIn("bread", ros.categories)
+        self.assertEqual(9, len(ros.categories))
+        self.assertIn("dairy", ros.categories)
 
     def test_category_sales(self):
         ros = ROS()
