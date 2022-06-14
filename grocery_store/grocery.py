@@ -5,7 +5,7 @@ class ROS:
         self.categories = {}
         self._category_sales = {}
 
-    def add_item(self, name, _, price):
+    def add_item(self, name: str, _, price: int):
         name = name.strip()
         # quantity is unused for now
         self.items.append((name, _, price))
@@ -15,12 +15,12 @@ class ROS:
                 if item in name:
                     self._category_sales[category] = self._category_sales.get(category, 0) + price
 
-    def add_category(self, item, category):
+    def add_category(self, item: str, category: str):
         if category not in self.categories:
             self.categories[category] = []
         self.categories[category].append(item)
 
-    def process_ros_file(self, data):
+    def process_ros_file(self, data: list):
         for item in data.split("\n"):
             if item.strip():  # if item is not empty
                 name = item.split(",")[-3].strip()
@@ -29,17 +29,17 @@ class ROS:
                 name = item.strip().split(",")[0]
                 self.add_item(name, 0, price)
 
-    def create_categories(self, data):
+    def create_categories(self, data: list):
         for line in data.split("\n"):
             if line.strip():
                 item = line.split(",")[0].strip()
                 category = line.split(",")[1].strip()
                 self.add_category(item, category)
 
-    def get_category_sales(self, category):
+    def get_category_sales(self, category: str) -> int:
         return self._category_sales.get(category, 0)
 
-    def similarity(self, other_ros):
+    def similarity(self, other_ros) -> float:
         """
         Returns a similarity score between two ROS objects.
         """
