@@ -1,6 +1,6 @@
 import unittest
 
-from rpg_inc.engine import RPGEngine
+from rpg_inc.engine import Player, RPGEngine
 
 
 class TestRPGEngine(unittest.TestCase):
@@ -11,6 +11,11 @@ class TestRPGEngine(unittest.TestCase):
     def test_add_players(self):
         engine = RPGEngine()
         self.assertEqual(0, engine.num_players)
-        engine.add_player('player1')
+        engine.add_player("player1")
         self.assertEqual(1, engine.num_players)
-        self.assertIn('player1', engine.get_players())
+        self.assertIsInstance(engine.get_players()[0], Player)
+        self.assertEqual("player1", engine.get_players()[0].name)
+        engine.add_player("player2")
+        self.assertEqual(2, engine.num_players)
+        self.assertIsInstance(engine.get_players()[1], Player)
+        self.assertEqual("player2", engine.get_players()[1].name)
