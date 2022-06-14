@@ -8,7 +8,6 @@ class ROS:
     def add_item(self, name, _, price):
         name = name.strip()
         # quantity is unused for now
-        print("Adding item: {} at price: {}".format(name, price))
         self.items.append((name, _, price))
         self.total_income += price
         for category in self.categories:
@@ -39,3 +38,11 @@ class ROS:
 
     def get_category_sales(self, category):
         return self._category_sales.get(category, 0)
+
+    def similarity(self, other_ros):
+        """
+        Returns a similarity score between two ROS objects.
+        """
+        all_items = set(self.items) | set(other_ros.items)
+        both_items = set(self.items) & set(other_ros.items)
+        return len(both_items) / len(all_items)

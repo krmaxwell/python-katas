@@ -92,3 +92,14 @@ class TestROS(unittest.TestCase):
         self.assertEqual(2, ros.get_category_sales("wheat and pasta"))
         self.assertEqual(4, ros.get_category_sales("greens"))
         self.assertEqual(10, ros.get_category_sales("sodas"))
+
+    def test_ros_similarity(self):
+        ros1 = ROS()
+        ros1.add_item("bread", 1, 2)
+        ros2 = ROS()
+        ros2.add_item("bread", 1, 2)
+        self.assertEqual(1, ros1.similarity(ros2))
+        ros3 = ROS()
+        self.assertEqual(0, ros1.similarity(ros3))
+        ros2.add_item("eggs", 1, 2)
+        self.assertEqual(0.5, ros1.similarity(ros2))
