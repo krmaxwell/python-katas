@@ -10,6 +10,13 @@ class RPGEngine:
     def get_players(self):
         return self._players
 
+    def process_combat_rpg_file(self, data):
+        for line in data.split("\n"):
+            line = line.strip()
+            if line:
+                name = line.split(",")[0]
+                self.add_player(name)
+
 class Player:
     def __init__(self, name):
         self.name = name
