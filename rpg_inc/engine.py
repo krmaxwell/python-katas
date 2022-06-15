@@ -2,10 +2,11 @@ class RPGEngine:
     def __init__(self):
         self.num_players = 0
         self._players = []
+        self.ticks = 0
 
-    def add_player(self, player_name):
+    def add_player(self, player_name, speed = 0, health = 1, weapon = "", damage = 0):
         self.num_players += 1
-        self._players.append(Player(player_name))
+        self._players.append(Player(player_name, speed, health, weapon, damage))
 
     def get_players(self):
         return self._players
@@ -14,9 +15,21 @@ class RPGEngine:
         for line in data.split("\n"):
             line = line.strip()
             if line:
-                name = line.split(",")[0]
-                self.add_player(name)
+                line_data = line.split(",")
+                name = line_data[0]
+                speed = int(line_data[1])
+                health = int(line_data[2])
+                weapon = line_data[3].strip()
+                damage = int(line_data[4])
+                self.add_player(name, speed, health, weapon, damage)
+
+    def do_tick(self):
+        self.ticks += 1
 
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, speed, health, weapon, damage):
         self.name = name
+        self.speed = speed
+        self.health = health
+        self.weapon = weapon
+        self.damage = damage
