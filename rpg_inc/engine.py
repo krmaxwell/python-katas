@@ -31,14 +31,10 @@ class RPGEngine:
         self._players[1].remaining_ticks -= 1
 
         if self._players[0].remaining_ticks <= 0:
-            self._players[1].health -= self._players[0].damage
-            print("Reduce player1 health to {}".format(self._players[1].health))
-            self._players[0].remaining_ticks = self._players[0].speed
+            self._players[0].attack(self._players[1])
 
         if self._players[1].remaining_ticks <= 0:
-            self._players[0].health -= self._players[1].damage
-            print("Reduce player0 health to {}".format(self._players[0].health))
-            self._players[1].remaining_ticks = self._players[1].speed
+            self._players[1].attack(self._players[0])
 
 
 class Player:
@@ -48,4 +44,9 @@ class Player:
         self.health = health
         self.weapon = weapon
         self.damage = damage
+        self.remaining_ticks = self.speed
+
+    def attack(self, defender):
+        defender.health -= self.damage
+        print("Reduce player1 health to {}".format(defender.health))
         self.remaining_ticks = self.speed
