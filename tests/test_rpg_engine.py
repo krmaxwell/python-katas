@@ -4,7 +4,6 @@ from rpg_inc.engine import Player, RPGEngine
 
 
 class TestRPGEngine(unittest.TestCase):
-
     def setUp(self) -> None:
         self.combat_rpg_file = """
         'Mark the Fister', 4, 8, 'Iron Fist', 4
@@ -54,4 +53,14 @@ class TestRPGEngine(unittest.TestCase):
         player0 = self.engine.get_players()[0]
         self.assertEqual(7, player0.health)
         player1 = self.engine.get_players()[1]
-        self.assertEqual(3, player1.health)
+        self.assertEqual(7, player1.health)
+
+    def test_tick_until_player_dies(self):
+        self.engine.process_combat_rpg_file(self.combat_rpg_file)
+        player0 = self.engine.get_players()[0]
+        player1 = self.engine.get_players()[1]
+
+        while player0.health > 0 and player1.health > 0:
+            self.engine.do_tick()
+        self.assertTrue(player0.health <= 0 or player1.health <= 0)
+        self.assertEqual(8, self.engine.ticks)

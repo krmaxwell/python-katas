@@ -4,7 +4,7 @@ class RPGEngine:
         self._players = []
         self.ticks = 0
 
-    def add_player(self, player_name: str, speed = 0, health = 1, weapon = "", damage = 0):
+    def add_player(self, player_name: str, speed=0, health=1, weapon="", damage=0):
         self.num_players += 1
         self._players.append(Player(player_name, speed, health, weapon, damage))
 
@@ -25,8 +25,21 @@ class RPGEngine:
 
     def do_tick(self):
         self.ticks += 1
-        self._players[0].health -= self._players[1].damage
-        self._players[1].health -= self._players[0].damage
+        print("Tick: {}".format(self.ticks))
+
+        self._players[0].remaining_ticks -= 1
+        self._players[1].remaining_ticks -= 1
+
+        if self._players[0].remaining_ticks <= 0:
+            self._players[1].health -= self._players[0].damage
+            print("Reduce player1 health to {}".format(self._players[1].health))
+            self._players[0].remaining_ticks = self._players[0].speed
+
+        if self._players[1].remaining_ticks <= 0:
+            self._players[0].health -= self._players[1].damage
+            print("Reduce player0 health to {}".format(self._players[0].health))
+            self._players[1].remaining_ticks = self._players[1].speed
+
 
 class Player:
     def __init__(self, name, speed, health, weapon, damage):
@@ -35,3 +48,4 @@ class Player:
         self.health = health
         self.weapon = weapon
         self.damage = damage
+        self.remaining_ticks = self.speed
