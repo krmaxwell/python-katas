@@ -4,14 +4,14 @@ class RPGEngine:
         self._players = []
         self.ticks = 0
 
-    def add_player(self, player_name, speed = 0, health = 1, weapon = "", damage = 0):
+    def add_player(self, player_name: str, speed = 0, health = 1, weapon = "", damage = 0):
         self.num_players += 1
         self._players.append(Player(player_name, speed, health, weapon, damage))
 
-    def get_players(self):
+    def get_players(self) -> list:
         return self._players
 
-    def process_combat_rpg_file(self, data):
+    def process_combat_rpg_file(self, data: str):
         for line in data.split("\n"):
             line = line.strip()
             if line:
@@ -25,6 +25,8 @@ class RPGEngine:
 
     def do_tick(self):
         self.ticks += 1
+        self._players[0].health -= self._players[1].damage
+        self._players[1].health -= self._players[0].damage
 
 class Player:
     def __init__(self, name, speed, health, weapon, damage):
