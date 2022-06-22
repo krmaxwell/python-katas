@@ -1,3 +1,5 @@
+import contextlib
+import io
 import unittest
 
 from rpg_inc.engine import Player, RPGEngine
@@ -6,8 +8,8 @@ from rpg_inc.engine import Player, RPGEngine
 class TestRPGEngine(unittest.TestCase):
     def setUp(self) -> None:
         self.combat_rpg_file = """
-        'Mark the Fister', 4, 8, 'Iron Fist', 4
-        'John the Bagger', 1, 7, 'Small Bag', 1
+        'Mark The Fister', 4, 8, 'Iron Fist', 4
+        'John The Bagger', 1, 7, 'Small Bag', 1
         """
         self.engine = RPGEngine()
 
@@ -32,7 +34,7 @@ class TestRPGEngine(unittest.TestCase):
         self.assertEqual(2, self.engine.num_players)
 
         player0 = self.engine.get_players()[0]
-        self.assertEqual("'Mark the Fister'", player0.name)
+        self.assertEqual("'Mark The Fister'", player0.name)
         self.assertEqual(4, player0.speed)
         self.assertEqual(8, player0.health)
         self.assertEqual("'Iron Fist'", player0.weapon)
@@ -64,3 +66,21 @@ class TestRPGEngine(unittest.TestCase):
             self.engine.do_tick()
         self.assertTrue(player0.health <= 0 or player1.health <= 0)
         self.assertEqual(8, self.engine.ticks)
+
+    def test_result_rpg_file(self):
+        self.engine.process_combat_rpg_file(self.combat_rpg_file)
+        player0 = self.engine.get_players()[0]
+        player1 = self.engine.get_players()[1]
+        with contextlib.redirect_stdout(io.StringIO()) as output:
+            self.engine.do_tick()
+            self.assertEqual(
+                "1,'John The Bagger','Mark The Fister','Small Bag',1,7,7\n",
+                output.getvalue(),
+            )
+            while player0.health > 0 and player1.health > 0:
+                self.engine.do_tick()
+            log = output.getvalue()
+            
+        print(log)
+        self.assertEqual(10, len(log.split("\n")))
+

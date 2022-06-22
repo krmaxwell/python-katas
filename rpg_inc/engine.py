@@ -25,16 +25,39 @@ class RPGEngine:
 
     def do_tick(self):
         self.ticks += 1
-        print("Tick: {}".format(self.ticks))
 
-        self._players[0].remaining_ticks -= 1
-        self._players[1].remaining_ticks -= 1
+        player0 = self._players[0]
+        player0.remaining_ticks -= 1
+        player1 = self._players[1]
+        player1.remaining_ticks -= 1
 
-        if self._players[0].remaining_ticks <= 0:
-            self._players[0].attack(self._players[1])
+        if player0.remaining_ticks <= 0:
+            player0.attack(player1)
+            print(
+                "{},{},{},{},{},{},{}".format(
+                    self.ticks,
+                    player0.name,
+                    player1.name,
+                    player0.weapon,
+                    player0.damage,
+                    player0.health,
+                    player1.health,
+                )
+            )
 
-        if self._players[1].remaining_ticks <= 0:
-            self._players[1].attack(self._players[0])
+        if player1.remaining_ticks <= 0:
+            player1.attack(player0)
+            print(
+                "{},{},{},{},{},{},{}".format(
+                    self.ticks,
+                    player1.name,
+                    player0.name,
+                    player1.weapon,
+                    player1.damage,
+                    player0.health,
+                    player1.health,
+                )
+            )
 
 
 class Player:
@@ -48,5 +71,4 @@ class Player:
 
     def attack(self, defender):
         defender.health -= self.damage
-        print("Reduce player1 health to {}".format(defender.health))
         self.remaining_ticks = self.speed
