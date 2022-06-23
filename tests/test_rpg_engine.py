@@ -7,6 +7,7 @@ from rpg_inc.engine import Player, RPGEngine
 
 class TestRPGEngine(unittest.TestCase):
     def setUp(self) -> None:
+        # Name, Speed, Health, Weapon, Damage
         self.combat_rpg_file = """
         'Mark The Fister', 4, 8, 'Iron Fist', 4
         'John The Bagger', 1, 7, 'Small Bag', 1
@@ -73,6 +74,7 @@ class TestRPGEngine(unittest.TestCase):
         player1 = self.engine.get_players()[1]
         with contextlib.redirect_stdout(io.StringIO()) as output:
             self.engine.do_tick()
+            # output: Tick, Attacker, Defender, Weapon, Damage, Attacker Health, Defender Health
             self.assertEqual(
                 "1,'John The Bagger','Mark The Fister','Small Bag',1,7,7\n",
                 output.getvalue(),

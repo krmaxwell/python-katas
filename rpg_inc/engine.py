@@ -31,7 +31,7 @@ class RPGEngine:
         player1 = self._players[1]
         player1.remaining_ticks -= 1
 
-        if player0.remaining_ticks <= 0:
+        if player0.remaining_ticks == 0:
             player0.attack(player1)
             print(
                 "{},{},{},{},{},{},{}".format(
@@ -40,12 +40,12 @@ class RPGEngine:
                     player1.name,
                     player0.weapon,
                     player0.damage,
-                    player0.health,
                     player1.health,
+                    player0.health,
                 )
             )
 
-        if player1.remaining_ticks <= 0:
+        if player1.remaining_ticks == 0:
             player1.attack(player0)
             print(
                 "{},{},{},{},{},{},{}".format(
@@ -55,7 +55,7 @@ class RPGEngine:
                     player1.weapon,
                     player1.damage,
                     player0.health,
-                    player1.health,
+                    player1.health
                 )
             )
 
@@ -70,5 +70,8 @@ class Player:
         self.remaining_ticks = self.speed
 
     def attack(self, defender):
-        defender.health -= self.damage
+        if defender.health > self.damage:
+            defender.health -= self.damage
+        else:
+            defender.health = 0
         self.remaining_ticks = self.speed
